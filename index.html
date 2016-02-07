@@ -1,0 +1,374 @@
+<html lang="en" >
+<head>
+  <!-- Angular Material style sheet -->
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+  <style>
+.buttondemoBasicUsage section {
+  background: #f7f7f7;
+  border-radius: 3px;
+  text-align: center;
+  margin: 1em;
+  position: relative !important;
+  padding-bottom: 10px; }
+
+.buttondemoBasicUsage md-content {
+  margin-right: 7px; }
+
+.buttondemoBasicUsage section .md-button {
+  margin-top: 16px;
+  margin-bottom: 16px; }
+
+.buttondemoBasicUsage .label {
+  position: absolute;
+  bottom: 5px;
+  left: 7px;
+  font-size: 14px;
+  opacity: 0.54; }
+
+
+/*
+Copyright 2016 Google Inc. All Rights Reserved. 
+Use of this source code is governed by an MIT-style license that can be in foundin the LICENSE file at http://material.angularjs.org/license.
+*/
+  </style>
+</head>
+<body ng-app="BlankApp" layout="column" md-theme="altTheme" ng-cloak>
+  <!--
+    Your HTML content here
+  --> 
+  <md-toolbar class="md-warn">
+    <md-menu-bar>
+          <md-menu>
+            <button ng-click="$mdOpenMenu()">
+              File
+            </button>
+            <md-menu-content>
+              <md-menu-item>
+                <md-button ng-click="ctrl.sampleAction('share', $event)">
+                  Share...
+                </md-button>
+              </md-menu-item>
+              <md-menu-divider></md-menu-divider>
+              <md-menu-item>
+                <md-menu>
+                  <md-button ng-click="$mdOpenMenu()">New</md-button>
+                  <md-menu-content>
+                    <md-menu-item><md-button ng-click="ctrl.sampleAction('New Document', $event)">Document</md-button></md-menu-item>
+                    <md-menu-item><md-button ng-click="ctrl.sampleAction('New Spreadsheet', $event)">Spreadsheet</md-button></md-menu-item>
+                    <md-menu-item><md-button ng-click="ctrl.sampleAction('New Presentation', $event)">Presentation</md-button></md-menu-item>
+                    <md-menu-item><md-button ng-click="ctrl.sampleAction('New Form', $event)">Form</md-button></md-menu-item>
+                    <md-menu-item><md-button ng-click="ctrl.sampleAction('New Drawing', $event)">Drawing</md-button></md-menu-item>
+                  </md-menu-content>
+                </md-menu>
+              </md-menu-item>
+              <md-menu-item>
+                <md-button ng-click="ctrl.sampleAction('Open', $event)">
+                  Open...
+                  <span class="md-alt-text"> {{ 'M-O' | keyboardShortcut }}</span>
+                </md-button>
+              </md-menu-item>
+              <md-menu-item>
+                <md-button disabled="disabled" ng-click="ctrl.sampleAction('Rename', $event)">
+                  Rename
+                </md-button>
+              </md-menu-item>
+              <md-menu-divider></md-menu-divider>
+              <md-menu-item>
+                <md-button ng-click="ctrl.sampleAction('Print', $event)">
+                  Print
+                  <span class="md-alt-text">{{ 'M-P' | keyboardShortcut }}</span>
+                </md-button>
+              </md-menu-item>
+            </md-menu-content>
+          </md-menu>
+          <md-menu>
+            <button ng-click="$mdOpenMenu()">
+              Edit
+            </button>
+            <md-menu-content>
+              <md-menu-item class="md-indent">
+                <md-icon md-svg-icon="undo"></md-icon>
+                <md-button ng-click="ctrl.sampleAction('undo', $event)">
+                  Undo
+                  <span class="md-alt-text">{{ 'M-Z' | keyboardShortcut }}</span>
+                </md-button>
+              </md-menu-item>
+              <md-menu-item class="md-indent">
+                <md-icon md-svg-icon="redo"></md-icon>
+                <md-button ng-click="ctrl.sampleAction('redo', $event)">
+                  Redo
+                  <span class="md-alt-text">{{ 'M-Y' | keyboardShortcut }}</span>
+                </md-button>
+              </md-menu-item>
+              <md-menu-divider></md-menu-divider>
+              <md-menu-item class="md-indent">
+                <md-icon md-svg-icon="content-cut"></md-icon>
+                <md-button ng-click="ctrl.sampleAction('cut', $event)">
+                  Cut
+                  <span class="md-alt-text">{{ 'M-X' | keyboardShortcut }}</span>
+                </md-button>
+              </md-menu-item>
+              <md-menu-item class="md-indent">
+                <md-icon md-svg-icon="content-copy"></md-icon>
+                <md-button ng-click="ctrl.sampleAction('copy', $event)">
+                  Copy
+                  <span class="md-alt-text">{{ 'M-C' | keyboardShortcut }}</span>
+                </md-button>
+              </md-menu-item>
+              <md-menu-item class="md-indent">
+                <md-icon md-svg-icon="content-paste"></md-icon>
+                <md-button ng-click="ctrl.sampleAction('paste', $event)">
+                  Paste
+                  <span class="md-alt-text">{{ 'M-P' | keyboardShortcut }}</span>
+                </md-button>
+              </md-menu-item>
+              <md-menu-divider></md-menu-divider>
+              <md-menu-item class="md-indent">
+                <md-button ng-click="ctrl.sampleAction('Find and replace', $event)">
+                  Find and replace...
+                  <span class="md-alt-text">{{ 'M-S-H' | keyboardShortcut }}</span>
+                </md-button>
+              </md-menu-item>
+            </md-menu-content>
+          </md-menu>
+          <md-menu>
+            <button ng-click="$mdOpenMenu()">
+              View
+            </button>
+            <md-menu-content>
+              <md-menu-item type="checkbox" ng-model="ctrl.settings.printLayout">Print layout</md-menu-item>
+              <md-menu-item class="md-indent">
+                <md-menu>
+                  <md-button ng-click="$mdOpenMenu()">Mode</md-button>
+                  <md-menu-content width="3">
+                    <md-menu-item type="radio" ng-model="ctrl.settings.presentationMode" value="'presentation'">Presentation</md-menu-item>
+                    <md-menu-item type="radio" ng-model="ctrl.settings.presentationMode" value="'edit'">Edit</md-menu-item>
+                    <md-menu-item type="radio" ng-model="ctrl.settings.presentationMode" value="'modifiable'">Modifiable</md-menu-item>
+                  </md-menu-content>
+                </md-menu>
+              </md-menu-item>
+              <md-menu-divider></md-menu-divider>
+              <md-menu-item type="checkbox" ng-model="ctrl.settings.showRuler">Show ruler</md-menu-item>
+              <md-menu-item type="checkbox" ng-model="ctrl.settings.showEquationToolbar">Show equation toolbar</md-menu-item>
+              <md-menu-item type="checkbox" ng-model="ctrl.settings.showSpellingSuggestions">Show spelling suggestions</md-menu-item>
+              <md-menu-divider></md-menu-divider>
+              <md-menu-item type="checkbox" ng-model="ctrl.settings.compactControls">Compact controls</md-menu-item>
+              <md-menu-item type="checkbox" ng-model="ctrl.settings.fullScreen">Full screen</md-menu-item>
+            </md-menu-content>
+          </md-menu>
+          <md-menu>
+            <button ng-click="$mdOpenMenu()">
+              Format
+            </button>
+            <md-menu-content>
+              <md-menu-item>
+                <md-button ng-click="ctrl.sampleAction('bold', $event)">
+                  Bold
+                  <span class="md-alt-text"> {{ 'M-B' | keyboardShortcut }}</span>
+                </md-button>
+              </md-menu-item>
+              <md-menu-item>
+                <md-button ng-click="ctrl.sampleAction('italic', $event)">
+                  Italic
+                  <span class="md-alt-text">{{ 'M-I' | keyboardShortcut }}</span>
+                </md-button>
+              </md-menu-item>
+              <md-menu-item>
+                <md-button ng-click="ctrl.sampleAction('underline', $event)">
+                  Underline
+                  <span class="md-alt-text">{{ 'M-U' | keyboardShortcut }}</span>
+                </md-button>
+              </md-menu-item>
+              <md-menu-item>
+                <md-button ng-click="ctrl.sampleAction('strikethrough', $event)">
+                  Strikethrough
+                  <span class="md-alt-text">{{ 'A-S-5' | keyboardShortcut }}</span>
+                </md-button>
+              </md-menu-item>
+              <md-menu-item>
+                <md-button ng-click="ctrl.sampleAction('superscript', $event)">
+                  Superscript
+                  <span class="md-alt-text">{{ 'M-.' | keyboardShortcut }}</span>
+                </md-button>
+              </md-menu-item>
+              <md-menu-item>
+                <md-button ng-click="ctrl.sampleAction('subscript', $event)">
+                  Subscript
+                  <span class="md-alt-text">{{ 'M-,' | keyboardShortcut }}</span>
+                </md-button>
+              </md-menu-item>
+              <md-menu-divider></md-menu-divider>
+              <md-menu-item><md-button ng-click="ctrl.toggleSetting('clearFormatting')">Clear Formatting</md-button></md-menu-item>
+            </md-menu-content>
+          </md-menu>
+        </md-menu-bar>
+  </md-toolbar>
+  <md-content flex layout-padding>
+  <section layout="row" layout-sm="column" layout-align="center center" layout-wrap="">
+      <md-button class="md-raised">Button</md-button>
+      <md-button class="md-raised md-primary">Primary</md-button>
+      <md-button ng-disabled="true" class="md-raised md-primary">Disabled</md-button>
+      <md-button class="md-raised md-warn">Warn</md-button>
+      
+    </section>
+
+<section layout="row" layout-sm="column" layout-align="center center" layout-wrap="">
+        <div layout-gt-sm="row" class="layout-gt-sm-row">
+                <md-input-container class="md-block flex-gt-sm" flex-gt-sm="">
+                  <label for="input_152">First name</label>
+                  <input ng-model="user.firstName" class="ng-pristine ng-valid md-input ng-touched" id="input_152" aria-invalid="false" style="">
+                <div class="md-errors-spacer"></div></md-input-container>
+
+                <md-input-container class="md-block flex-gt-sm" flex-gt-sm="">
+                  <label for="input_153">Last Name</label>
+                  <input ng-model="theMax" class="ng-pristine ng-valid md-input ng-touched" id="input_153" aria-invalid="false" style="">
+                <div class="md-errors-spacer"></div></md-input-container>
+
+                <md-input-container class="md-block flex-gt-sm md-input-has-value" flex-gt-sm="">
+                  <label for="select_157" class="">State</label>
+                  <md-select ng-model="user.state" class="ng-pristine ng-valid ng-touched" tabindex="0" aria-disabled="false" role="listbox" aria-expanded="false" aria-multiselectable="false" id="select_157" aria-owns="select_container_158" aria-invalid="false" aria-label="State: 
+                      CA
+                    " style=""><md-select-value class="md-select-value" id="select_value_label_147"><span><div class="md-text ng-binding">
+                      CA
+                    </div></span><span class="md-select-icon" aria-hidden="true"></span></md-select-value></md-select>
+                </md-input-container>
+
+
+
+        </div>
+
+        
+  </section>
+
+  <section layout="row" layout-sm="column" layout-align="center center" layout-wrap="">
+      <fieldset class="standard">
+                <div layout="column" layout-wrap="" layout-gt-sm="row" class="layout-wrap layout-gt-sm-row layout-column">
+                  <div flex-xs="" flex="50" class="flex-xs flex-50">
+                    <md-checkbox ng-model="data.cb1" aria-label="Checkbox 1" role="checkbox" class="ng-valid ng-dirty ng-valid-parse md-checked ng-touched" tabindex="0" aria-checked="true" aria-invalid="false" style=""><div ng-transclude="" class="md-label"><span class="ng-binding ng-scope">
+                      Checkbox 1: true
+                    </span></div></md-checkbox>
+                  </div>
+                  <div flex-xs="" flex="50" class="flex-xs flex-50">
+                    <div layout-xs="column" flex-xs="100" class="layout-xs-column flex-xs-100">
+                      <md-checkbox ng-model="data.cb2" aria-label="Checkbox 2" ng-true-value="'yup'" ng-false-value="'nope'" class="md-warn md-align-top-left ng-valid flex md-checked ng-dirty ng-valid-parse ng-touched" flex="" role="checkbox" tabindex="0" aria-checked="true" aria-invalid="false" style=""><div ng-transclude="" class="md-label"><span class="ng-scope">
+                      Checkbox 2 (md-warn)  </span><br class="ng-scope">
+                      <span class="ipsum ng-scope">
+                        Duis placerat lectus et justo mollis, nec sodales orci congue. Vestibulum semper non urna ac suscipit.
+                        Vestibulum tempor, ligula id laoreet hendrerit, massa augue iaculis magna,
+                        sit amet dapibus tortor ligula non nibh.
+                      </span>
+                      <br class="ng-scope"><span class="ng-binding ng-scope">
+                      yup
+                    </span></div></md-checkbox>
+                    </div>
+                  </div>
+                  <div flex-xs="" flex="50" class="flex-xs flex-50">
+                    <md-checkbox ng-disabled="true" aria-label="Disabled checkbox" ng-model="data.cb3" role="checkbox" class="ng-pristine ng-untouched ng-valid" tabindex="-1" aria-disabled="true" disabled="disabled" aria-checked="false" aria-invalid="false"><div ng-transclude="" class="md-label"><span class="ng-scope">
+                      Checkbox: Disabled
+                    </span></div></md-checkbox>
+                  </div>
+                  <div flex-xs="" flex="50" class="flex-xs flex-50">
+                    <md-checkbox ng-disabled="true" aria-label="Disabled checked checkbox" ng-model="data.cb4" ng-init="data.cb4=true" role="checkbox" class="ng-pristine ng-untouched ng-valid md-checked" tabindex="-1" aria-disabled="true" disabled="disabled" aria-checked="true" aria-invalid="false"><div ng-transclude="" class="md-label"><span class="ng-scope">
+                      Checkbox: Disabled, Checked
+                    </span></div></md-checkbox>
+                  </div>
+                  <div flex-xs="" flex="50" class="flex-xs flex-50">
+                    <md-checkbox md-no-ink="" aria-label="Checkbox No Ink" ng-model="data.cb5" class="md-primary ng-valid md-checked ng-dirty ng-valid-parse ng-touched" role="checkbox" tabindex="0" aria-checked="true" aria-invalid="false" style=""><div ng-transclude="" class="md-label"><span class="ng-scope">
+                      Checkbox (md-primary): No Ink
+                    </span></div></md-checkbox>
+                  </div>
+                </div>
+              </fieldset>
+
+</section>
+
+<section>
+  <div>
+  <form ng-submit="submit()" ng-controller="AppCtrl" ng-cloak>
+    <p>Selected Value: <span class="radioValue">{{ data.group1 }}</span> </p>
+    <md-radio-group ng-model="data.group1">
+      <md-radio-button value="Apple" class="md-primary">Apple</md-radio-button>
+      <md-radio-button value="Banana"> Banana </md-radio-button>
+      <md-radio-button value="Mango">Mango</md-radio-button>
+    </md-radio-group>
+    <hr />
+      </form>
+</div>
+</section>
+
+
+<section>
+  
+<div ng-cloak>
+  <md-content>
+    <md-tabs md-dynamic-height md-border-bottom>
+      <md-tab label="one">
+        <md-content class="md-padding">
+          <h1 class="md-display-2">Tab One</h1>
+        </md-content>
+      </md-tab>
+      <md-tab label="two">
+        <md-content class="md-padding">
+          <h1 class="md-display-2">Tab Two</h1>
+        </md-content>
+      </md-tab>
+      <md-tab label="three">
+        <md-content class="md-padding">
+          <h1 class="md-display-2">Tab Three</h1>
+        </md-content>
+      </md-tab>
+    </md-tabs>
+  </md-content>
+</div>
+
+</section>
+  </md-content>
+
+  
+  <!-- Angular Material requires Angular.js Libraries -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+
+  <!-- Angular Material Library -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+  
+  <!-- Your application bootstrap  -->
+  <script type="text/javascript">    
+    /**
+     * You must include the dependency on 'ngMaterial' 
+     */
+    angular.module('BlankApp', ['ngMaterial'])
+    .config(function($mdThemingProvider) {
+  $mdThemingProvider.theme('default')
+    .primaryPalette('purple')
+
+
+})
+    .filter('keyboardShortcut', function($window) {
+    return function(str) {
+      if (!str) return;
+      var keys = str.split('-');
+      var isOSX = /Mac OS X/.test($window.navigator.userAgent);
+      var seperator = (!isOSX || keys.length > 2) ? '+' : '';
+      var abbreviations = {
+        M: isOSX ? '⌘' : 'Ctrl',
+        A: isOSX ? 'Option' : 'Alt',
+        S: 'Shift'
+      };
+      return keys.map(function(key, index) {
+        var last = index == keys.length - 1;
+        return last ? key : abbreviations[key];
+      }).join(seperator);
+    };
+  })
+    .controller('AppCtrl', function($scope) {
+
+    });
+  </script>
+  
+
+  
+</body>
+</html>
